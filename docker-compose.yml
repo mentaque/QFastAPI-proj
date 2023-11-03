@@ -1,0 +1,23 @@
+services:
+  web:
+    build: .
+    container_name: backend
+    environment:
+      - DB_HOST=database
+      - DB_NAME=dbname
+      - DB_USER=dbuser
+      - DB_PASS=pass
+    volumes:
+      - ./app:/app
+    ports:
+      - "80:80"
+    depends_on:
+      - database
+
+  database:
+    image: postgres:14.6-alpine
+    container_name: database
+    environment:
+      - POSTGRES_DB=dbname
+      - POSTGRES_USER=dbuser
+      - POSTGRES_PASSWORD=pass
